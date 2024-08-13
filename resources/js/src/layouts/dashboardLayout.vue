@@ -59,7 +59,7 @@
       // Mounted
       onMounted(() =>{
         getCurrentUser()
-        $q.addressbarColor.set('#0449fb')
+        $q.addressbarColor.set('#ff5a6a')
       })
       
       return {

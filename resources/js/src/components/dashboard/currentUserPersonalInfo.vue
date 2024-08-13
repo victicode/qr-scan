@@ -60,7 +60,7 @@
   .userInfoContent{
     height: 100%; 
     overflow: hidden;
-    background: linear-gradient(180deg, $secondary 65%, #fff 60%);
+    background: linear-gradient(180deg, $secondary 75%, #fff 75%);
   }
   h5{
     font-size: 1.9rem!important;

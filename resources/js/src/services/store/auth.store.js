@@ -25,8 +25,10 @@ export const useAuthStore = defineStore("auth", {
       storage.setItem("is_admin",  user.rol_id !== '3' ? true : false);
       storage.setItem("user_unique_id",user.id);
     },
-    setRememberAccount({dni, password, remember}){
-      storage.setItem("rememberUser", dni);
+    setRememberAccount({email, password, remember}){
+
+      console.log(email)
+      storage.setItem("rememberUser", email);
       storage.setItem("rememberPassword", password);
       storage.setItem("isRemember", remember);
     },
