@@ -21,11 +21,9 @@ class User extends Authenticatable implements JWTSubject
     protected $fillable = [
         'name',
         'email',
-        'dni',
         'password',
         'rol_id',
         'verify_status',
-        'is_first_loan'
     ];
 
     /**
@@ -56,16 +54,16 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
-    public function redTape(){
-        return $this->hasMany(RedTape::class)->orderBy('created_at', 'desc');
-    }
-    public function cards(){
-        return $this->hasMany(Card::class)->orderBy('created_at', 'desc');
-    }
-    public function wallet(){
-        return $this->hasOne(Wallet::class)->where('type', 1);
-    }
-    public function wallet_found(){
-        return $this->hasOne(Wallet::class)->where('type', 2);
-    }
+    // public function redTape(){
+    //     return $this->hasMany(RedTape::class)->orderBy('created_at', 'desc');
+    // }
+    // public function cards(){
+    //     return $this->hasMany(Card::class)->orderBy('created_at', 'desc');
+    // }
+    // public function wallet(){
+    //     return $this->hasOne(Wallet::class)->where('type', 1);
+    // }
+    // public function wallet_found(){
+    //     return $this->hasOne(Wallet::class)->where('type', 2);
+    // }
 }   

@@ -32,22 +32,12 @@ class UserController extends Controller
             $newUser = User::create([
                 'name'          => $request->fullName,
                 'email'         => $request->email,
-                'dni'           => $request->dni,
                 'password'      => bcrypt($request->password),
                 'rol_id'        => 3,
-                'is_first_loan' => 1,
-
             ]);
         } catch (Exception $th) {
             return $this->returnSuccess(400, $th->getMessage());
         }
-
-        $requestWallet = new Request([
-            'user_id'   => $newUser->id,
-            'user_dni'       => $newUser->dni,
-            'type'      => 1,
-        ]);
-        $this->storeWallet($requestWallet);
 
         return $this->returnSuccess(200, $newUser);
     }
@@ -107,64 +97,7 @@ class UserController extends Controller
 
         return $this->returnSuccess(200, $usersByRol);
     }
-    public function sendMobileVerifyCode(Request $request){
 
-        try {
-            
-            $sid = config('twilio.sid');
-            $token = config('twilio.token');
-            $services = config('twilio.services');
-            $twilio = new Client($sid, $token);
-            $verification_check = $twilio->verify->v2
-            ->services($services)
-            ->verifications->create(
-                '+58'.$request->phone,
-                'sms'
-            );
-        } catch (Exception $th) {
-            return $this->returnFail(400, $th->getMessage());
-        }
-        
-        return $this->returnSuccess(200, $verification_check->status);
-    }
-    public function verifyPhoneNumber(Request $request){
-        try {
-
-            $sid = config('twilio.sid');
-            $token = config('twilio.token');
-            $services = config('twilio.services');
-            $twilio = new Client($sid, $token);
-
-            $verification_check = $twilio->verify->v2
-            ->services($services)
-            ->verificationChecks->create([
-                'to' => '+58'.$request->phone,
-                'code' => $request->code,
-            ]);
-        } catch (Exception $th) {
-            return $this->returnFail(400, $th->getMessage());
-        }
-        
-        return $this->returnSuccess(200, $verification_check->status);
-    }
-    public function addNumber(){
-        try {
-
-            $sid = config('twilio.sid');
-            $token = config('twilio.token');
-            $services = config('twilio.services');
-            $twilio = new Client($sid, $token);
-
-            $validation_request = $twilio->validationRequests->create(
-                "+584245391538", // phone_number
-                ["friendlyName" => "My Home Phone Number"]
-            );
-        } catch (Exception $th) {
-            return $this->returnFail(400, $th->getMessage());
-        }
-        
-        return $this->returnSuccess(200, json_encode($validation_request));
-    }
     private function validateFieldsFromInput($inputs){
         $rules=[
             'fullName'      => ['required', 'regex:/^[a-zA-Z-À-ÿ .]+$/i'],
@@ -189,19 +122,6 @@ class UserController extends Controller
 
         return $validator->all() ;
 
-    }
-
-    private function storeWallet(Request $request){
-
-        $wallet = Wallet::create([
-            'number'    => '916' + $request->user_dni,
-            'balance'   => 0,
-            'type'      => $request->type,
-            'status'    => 1,
-            'user_id'   => $request->user_id,
-        ]);
-
-        return $wallet;
     }
 
 }
