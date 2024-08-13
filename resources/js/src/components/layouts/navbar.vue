@@ -12,7 +12,7 @@
         <span class="q-mt-xs text-dark text-subtitle1">Inicio</span>
       </div>
     </q-route-tab>
-    <q-tab class="q-px-xs-sm q-px-md-sm" >
+    <q-tab class="q-px-xs-sm q-px-md-sm" @click="showScan()">
       <div class="flex flex-center column">
         <q-icon
           :size="'lg'"
@@ -32,16 +32,23 @@
 </template>
 
 <script>
-import { inject, onMounted, ref } from 'vue'
+import { inject } from 'vue'
 import wozIcons from '@/assets/icons/wozIcons'
-import { useAuthStore } from '@/services/store/auth.store'
+import { useRouter } from 'vue-router'
 
 export default {
   setup () {
     const icons = inject('ionIcons')
-    const user = useAuthStore().user;
+    const emitter = inject('emitter'); // Inject `emitter`
+    const router = useRouter()
+    const showScan = () => {
+      router.push('/dashboard')
+      setTimeout(()=> {
+        emitter.emit('showScanModal');
+      }, 500)
+    };
 
-    return { icons, wozIcons}
+    return { icons, wozIcons, showScan}
   },
 }
 </script>

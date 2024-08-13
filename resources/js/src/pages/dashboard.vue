@@ -10,7 +10,7 @@
       <div style="height: 65%;">
         <qrScaned />
       </div>
-      
+      <modalScan />
     </div> 
 
   </div>
@@ -19,14 +19,14 @@
   import currentUserPersonalInfo from '@/components/dashboard/currentUserPersonalInfo.vue';
   import qrScaned from '@/components/dashboard/qrScaned.vue';
   import endButton from '@/components/dashboard/endButton.vue';
-
-
+  import modalScan from '@/components/dashboard/modalScan.vue';
 
   export default {
     components: {
       currentUserPersonalInfo,
       qrScaned,
       endButton,
+      modalScan,
     },
     setup() {
 

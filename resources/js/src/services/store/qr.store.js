@@ -10,13 +10,13 @@ export const useQrStore = defineStore("qr", {
           ApiService.setHeader();
           ApiService.post("api/qr/", data)
             .then(({ data }) => {
-              if(data.code !== 200){
+              if(!data){
                 throw data;
               }
               resolve(data)
             }).catch((response) => {
               console.log(response)
-              resolve('Error al escanear');
+              resolve(response.response.data.error);
             });
         }
       })

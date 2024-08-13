@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\CardController;
 use App\Http\Controllers\Api\LoanController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\PayController;
+use App\Http\Controllers\Api\QrController;
 use App\Http\Controllers\Api\TransferController;
 use App\Http\Controllers\Api\UserController;
 
@@ -44,45 +45,9 @@ Route::post('/create_wallet', [UserController::class, 'storeWallet']);
 Route::middleware('jwt.verify')->prefix('user')->name('user.')->group(function () {
     Route::get('/', [UserController::class, 'index']);
     Route::post('/u/{id}', [UserController::class, 'updateUser']);
-    Route::post('/sendPhoneCode', [UserController::class, 'sendMobileVerifyCode']);
-    Route::post('/verifyPhoneCode', [UserController::class, 'verifyPhoneNumber']);
 });
 
 
-Route::middleware('jwt.verify')->prefix('notifications')->name('notification.')->group(function () {
-    Route::get('/{id}', [NotificationController::class, 'getAllByUser']);
-    Route::get('/seeAll/{id}', [NotificationController::class, 'seeAllByUser']);
-});
-
-Route::middleware('jwt.verify')->prefix('banks')->name('bank.')->group(function () {
-    Route::get('/', [BankAccountController::class, 'getBanks']);
-});
-
-Route::middleware('jwt.verify')->prefix('accounts_bank')->name('accountsBank.')->group(function () {
-    Route::post('/', [BankAccountController::class, 'storeAccountBank']);
-    Route::get('/{id}', [BankAccountController::class, 'getAccountsBanksByUser']);
-    Route::post('/{id}', [BankAccountController::class, 'updateAccountBank']);
-    Route::get('/delete/{id}', [BankAccountController::class, 'destroyAccountBank']);
-});
-
-Route::middleware('jwt.verify')->prefix('loan')->name('loan.')->group(function () {
-    Route::post('/', [LoanController::class, 'storeLoan']);
-    Route::get('/{id}', [LoanController::class, 'getActiveLoan']);
-});
-
-Route::middleware('jwt.verify')->prefix('card')->name('card.')->group(function () {
-    Route::post('/', [CardController::class, 'linkCard']);
-    Route::get('/{id}', [CardController::class, 'getLinkCard']);
-    Route::post('/delete/{id}', [CardController::class, 'deleteCard']);
-});
-
-Route::middleware('jwt.verify')->prefix('transfer')->name('transfer.')->group(function () {
-    // Route::post('/', [CardController::class, 'linkCard']);
-    Route::get('/{id}', [TransferController::class, 'getTransferById']);
-    // Route::post('/delete/{id}', [CardController::class, 'deleteCard']);
-});
-
-Route::middleware('jwt.verify')->prefix('pay')->name('pay.')->group( function () {
-    Route::post('/', [PayController::class, 'storePay']);
-    Route::post('/get_url', [PayController::class, 'payRequest']);
+Route::middleware('jwt.verify')->prefix('qr')->name('qr.')->group(function () {
+    Route::post('/', [QrController::class, 'scanCode']);
 });

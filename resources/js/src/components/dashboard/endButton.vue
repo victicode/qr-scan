@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex justify-end q-mb-lg q-px-md" v-if="user.qr_scan.length > 4">
+    <div class="flex justify-end q-mb-lg q-px-md" v-if="user.qr_scan.length > 0">
       <q-btn class="q-py-sm  q-px-md" color="secondary" glossy label="Terminar recorrido"  />
     </div>
   </div>

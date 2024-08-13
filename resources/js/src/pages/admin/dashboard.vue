@@ -1,36 +1,35 @@
 <template>
   <div  class="dashboard_container">
-    <div style="height: 100%;">
-      <div style="height: 28.3%;">
+    <div class="bg-white" style="height: 100%;">
+      <div style="height: 25%;">
         <currentUserPersonalInfo />
       </div>
-      <div class="bg-white">
-        <actionsDashboard />
+      <div>
+        <endButton />
       </div>
-      <div style="">
-        <linkedCard />
+      <div style="height: 65%;">
+        <qrScaned />
       </div>
-      <div style="height: 27%;">
-        <LastTrasanction />
+      <div>
+        
       </div>
-    </div>
+    </div> 
 
   </div>
 </template>
 <script>
   import currentUserPersonalInfo from '@/components/dashboard/currentUserPersonalInfo.vue';
-  import actionsDashboard from '@/components/dashboard/actionsDashboard.vue';
-  import linkedCard from '@/components/dashboard/linkedCard.vue';
-  import LastTrasanction from '@/components/dashboard/lastTrasanction.vue';
-
+  import qrScaned from '@/components/dashboard/qrScaned.vue';
+  import endButton from '@/components/dashboard/endButton.vue';
+  
   export default {
     components: {
       currentUserPersonalInfo,
-      actionsDashboard,
-      linkedCard,
-      LastTrasanction,
+      qrScaned,
+      endButton,
     },
     setup() {
+
     },
   }
 </script>

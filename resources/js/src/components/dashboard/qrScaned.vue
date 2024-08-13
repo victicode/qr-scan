@@ -1,28 +1,13 @@
 <template>
   <div class="q-py-xs q-px-md  q-pb-md" style="height: 100%; overflow: hidden;">
-    <div class="pa-md" v-if="user.qr_scan.length > 4">
+    <div class="pa-md" v-if="user.qr_scan.length > 0">
       <div class="row">
-        <div v-for="(qr, item) in user.qr_scan" :key="item" class="col-3 q-px-sm">
+        <div v-for="(qr, item) in user.qr_scan" :key="item" class="col-3 q-px-sm q-mb-md">
           <div class="qrScaned_container flex flex-center relative" >
             <q-icon :name="icons.outlinedQrCode2" size="xl"/>
             <div class="overlop">
 
             </div>            
-          </div>
-        </div>
-        <div v-for="(qr, item) in user.qr_scan" :key="item" class="col-3 q-px-sm">
-          <div class="qrScaned_container flex flex-center relative" >
-            <q-icon :name="icons.outlinedQrCode2" size="xl"/>
-            <div class="overlop">
-
-            </div>            
-          </div>
-        </div>
-        <div v-for="(qr, item) in user.qr_scan" :key="item" class="col-3 q-px-sm">
-          <div class="qrScaned_container flex flex-center relative" >
-            <q-icon :name="icons.outlinedQrCode2" size="xl"/> 
-            <div class="overlop">
-            </div>             
           </div>
         </div>
       </div>

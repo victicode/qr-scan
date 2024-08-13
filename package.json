@@ -2,7 +2,7 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "dev": "vite --host 10.10.10.69 --port 8032 --force",
+        "dev": "vite --host 127.0.0.1 --port 8032 --force",
         "dev-home": "vite --host 192.168.31.20 --port 8032 --force",
         "build": "vite build"
     },
@@ -25,6 +25,7 @@
         "unplugin-auto-import": "^0.17.1",
         "vant": "^4.9.2",
         "vue": "^3.4.29",
+        "vue-barcode-reader": "^1.0.3",
         "vue-router": "^4.3.3"
     }
 }
