@@ -2,7 +2,7 @@
   <div>
     <div class="q-px-xs-md q-px-md-xl text-form__container">
       <div>
-        <h5 class="text-terciary text-weight-bold">Crea tu cuenta</h5>
+        <h5 class="text-secondary text-weight-bold">Crea tu cuenta</h5>
       </div>
       <div class="">
         <q-form
@@ -16,7 +16,7 @@
               outlined
               clearable
               :clear-icon="'eva-close-outline'"
-              color="positive"
+              color="secondary"
               v-model="fullName"
               name="name_user"
               label="Nombre completo"
@@ -31,15 +31,13 @@
               outlined
               clearable
               :clear-icon="'eva-close-outline'"
-              color="positive"
-              v-model="dni"
+              color="secondary"
+              v-model="email"
               name="id_user"
-              label="Número de cédula"
-              mask="###.###.###"
-              reverse-fill-mask
+              label="Correo electrónico"
               autocomplete="off"
-              :rules="dniRules"
-              ref="dniRef"
+              :rules="emailRules"
+              ref="emailRef"
               
             />
           </div>
@@ -49,7 +47,7 @@
               outlined
               clearable
               :clear-icon="'eva-close-outline'"
-              color="positive"
+              color="secondary"
               name="password_user"
               :type="isPwd ? 'password' : 'text'" 
               v-model="password"
@@ -67,10 +65,10 @@
             </q-input>
           </div>
           <div class="col-12 q-mt-none">
-            <q-checkbox v-model="remember"  label="Recuérdame" color="terciary" />
+            <q-checkbox v-model="remember"  label="Recuérdame" color="secondary" />
           </div>
           <div class="col-12 q-mt-sm">
-            <q-checkbox v-model="accept_terms" label="Acepto que he leído los términos y condiciones de Woz Pay" color="terciary" />
+            <q-checkbox v-model="accept_terms" label="Acepto que he leído los términos y condiciones." color="secondary" />
           </div>
           <div class="col-12 q-mt-sm q-px-md-xl q-pt-md-md" >
             <q-btn 
@@ -79,7 +77,7 @@
               unelevated 
               no-caps 
               @click="register" 
-              color="terciary" 
+              color="secondary" 
               class="full-width" 
               :loading="loading"
             >
@@ -93,7 +91,7 @@
       </div>
       <div>
         <div class="full-width text-center q-pt-md text-subtitle2">
-          ¿Ya tienes una cuenta en Woz Pay? <br>
+          ¿Ya tienes una cuenta? <br>
           <RouterLink to="/login"><span class="text-primary text-decoration-underline cursor-pointer ">Inicia sesión aqui</span></RouterLink>✌🏻
         </div>
       </div>
@@ -117,7 +115,7 @@
       
       // data
       const fullName = ref('')
-      const dni      = ref('')
+      const email      = ref('')
       const password = ref('')
       const isPwd    = ref('true')
       const loading  = ref(false)
@@ -125,7 +123,7 @@
       const remember = ref(false)
       //ref
       const fullNameRef = ref(null)
-      const dniRef = ref(null)
+      const emailRef = ref(null)
       const passwordRef = ref(null)
 
       
@@ -134,9 +132,10 @@
         val => (val !== null && val !== '') || 'El nombre es requerido.',
         val => (/[$,%"';&|<>()#]/.test(val) == false ) || 'Formato no valido',
       ]
-      const dniRules = [
+      const emailRules = [
         val => (val !== null && val !== '') || 'El número de cedula es requerido.',
-        val => (val.length > 8 ) || 'Formato no valido',
+        val => (/[,%"' ();&|<>]/.test(val) == false ) || 'No debe contener "[](),%|&;\'" ',
+
       ]
       const passwordRules = [
         val => (val !== null && val !== '') || 'La contraseña es requerida',
@@ -153,7 +152,7 @@
         loadingState(true)
         const data = {
           fullName: fullName.value,
-          dni: dni.value.replace(/\./g, ''),
+          email: email.value,
           password: password.value,
           remember: remember.value
         }
@@ -187,12 +186,12 @@
       }
       const validateForm = () => {
         fullNameRef.value.validate()
-        dniRef.value.validate()
+        emailRef.value.validate()
         passwordRef.value.validate()
 
         if (
           fullNameRef.value.hasError 
-          || dniRef.value.hasError 
+          || emailRef.value.hasError 
           || passwordRef.value.hasError
         ) return false
 
@@ -206,16 +205,16 @@
       
       return {
         icons,
-        dni,
+        email,
         password,
         fullName,
         isPwd,
         nameRules,
-        dniRules,
+        emailRules,
         passwordRules,
         termsRules,
         fullNameRef,
-        dniRef,
+        emailRef,
         passwordRef,
         loading,
         accept_terms,
@@ -238,12 +237,6 @@
 <style lang="scss">
 .text-decoration-underline{
   text-decoration: underline;
-}
-.text-backLinear{
-  color:#e5b301!important
-}
-.bg-backLinear{
-  background: #e5b301!important;
 }
 .register-input {
   & .q-field__control{

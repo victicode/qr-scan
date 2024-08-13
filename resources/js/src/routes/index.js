@@ -7,6 +7,7 @@ import dashboardLayout from '@/layouts/dashboardLayout.vue';
 import pageLayout from '@/layouts/pagesLayout.vue';
 import authLayout from '@/layouts/authLayout.vue';
 import paysLayout from '@/layouts/paysLayout.vue';
+import profile from '@/pages/profile.vue';
 
 
 const router = createRouter({
@@ -32,14 +33,20 @@ const router = createRouter({
           },
         },
         {
+          name: "profile",
+          path: '/profile',
+          component: profile,
+          beforeEnter: auth,
+          meta: {
+            title : 'Perfil'
+          },
+        },
+        {
           name: "dashboard_admin",
           path: '/admin/dashboard',
           component: () => import('@/pages/admin/dashboard.vue'),
           beforeEnter: admin,
           meta: {
-            // middleware: [
-            //   auth
-            // ],
             title : 'Dashboard'
           },
         }
@@ -51,7 +58,7 @@ const router = createRouter({
       component: pageLayout,
       beforeEnter: auth,
       children: [
-        
+       
       ]
     },
     

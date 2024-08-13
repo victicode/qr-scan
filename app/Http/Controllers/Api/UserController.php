@@ -101,16 +101,16 @@ class UserController extends Controller
     private function validateFieldsFromInput($inputs){
         $rules=[
             'fullName'      => ['required', 'regex:/^[a-zA-Z-À-ÿ .]+$/i'],
-            'dni'           => ['required', 'unique:users', 'regex:/^[0-9 .]+$/i'],
-            // 'email'         => ['required', 'email',],
+            // 'email'         => ['required', 'unique:users', 'regex:/^[0-9 .]+$/i'],
+            'email'         => ['required', 'unique:users', 'email',],
             'password'      => ['min:8'],
         ];
         $messages = [
             'fullName.required'     => 'El nombre es requerido.',
             'fullName.regex'        => 'Nombre no valido',
-            'dni.required'          => 'El DNI es requerido.',
-            'dni.regex'             => 'DNI no valido',
-            'dni.unique'            => 'DNI ya se encuentra registrado',
+            'email.required'          => 'El email es requerido.',
+            'email.regex'             => 'Email no valido',
+            'email.unique'            => 'Email ya se encuentra registrado',
             // 'email.required'        => 'El email es requerido.',
             // 'email.email'           => 'El Email no es valido',
             'password.required'     => 'La contraseña es requerida',

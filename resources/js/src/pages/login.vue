@@ -2,7 +2,7 @@
   <div>
     <div class="q-px-xs-md q-px-md-xl text-form__container">
       <div>
-        <h5 class="text-terciary text-weight-bold">Inicia sesión</h5>
+        <h5 class="text-secondary text-weight-bold">Inicia sesión</h5>
       </div>
       <div class="">
         <q-form
@@ -16,15 +16,13 @@
               outlined
               clearable
               :clear-icon="'eva-close-outline'"
-              color="positive"
-              v-model="dni"
+              color="secondary"
+              v-model="email"
               name="id_user"
-              label="Número de cédula"
-              mask="###.###.###"
-              reverse-fill-mask
-              :rules="dniRules"
+              label="Correo electrónico"
+              :rules="emailRules"
               autocomplete="off"
-              ref="dniRef"
+              ref="emailRef"
             />
           </div>
           <div class="col-12 q-mt-md-lg q-mt-sm">
@@ -33,7 +31,7 @@
               outlined
               clearable
               :clear-icon="'eva-close-outline'"
-              color="positive"
+              color="secondary"
               name="password_user"
               :type="isPwd ? 'password' : 'text'" 
               v-model="password"
@@ -51,7 +49,7 @@
             </q-input>
           </div>
           <div class="col-12 ">
-            <q-checkbox v-model="remember"  label="Recuérdame" color="terciary" />
+            <q-checkbox v-model="remember"  label="Recuérdame" color="secondary" />
           </div>
           <div class="col-12 q-mt-sm q-mb-md q-px-md-xl q-pt-md-sm">
             <q-btn 
@@ -59,7 +57,7 @@
               label="Inicia sesión" 
               unelevated
               no-caps 
-              color="terciary" 
+              color="secondary" 
               class="full-width" 
               :loading="loading"
               @click="login" 
@@ -97,21 +95,20 @@
       const router = useRouter()
       
       // data
-      const dni = ref(storage.getItem('rememberUser') ?? '')
+      const email = ref(storage.getItem('rememberUser') ?? '')
       const password = ref(storage.getItem('rememberPassword') ?? '')
       const isPwd = ref('true')
       const remember = ref(storage.getItem('isRemember') === 'true' ?? false)
       const loading = ref(false)
 
       //ref
-      const dniRef = ref(null)
+      const emailRef = ref(null)
       const passwordRef = ref(null)
       
       // rules
-      const dniRules = [
-        val => (val !== null && val !== '') || 'El número de cedula es requerido.',
-        val => (val.length >= 8 ) || 'Formato no valido',
-        val => (/[,%"'();&|<>]/.test(val) == false ) || 'No debe contener "[](),%|&;\'" ',
+      const emailRules = [
+        val => (val !== null && val !== '') || 'El correo requerido.',
+        val => (/[,%"' ();&|<>]/.test(val) == false ) || 'No debe contener "[](),%|&;\'" ',
       ]
       const passwordRules = [
         val => (val !== null && val !== '') || 'La contraseña es requerida',
@@ -123,13 +120,12 @@
         if(!validateForm()) return
         loadingShow(true)
         const data = {
-          dni: dni.value.replace(/\./g, ''),
+          email: email.value,
           password: password.value,
           remember: remember.value
         }
 
         store.login(data).then((data)=>{
-          console.log(data)
           if(!data.code){
             showNotify('negative', data.message)
             loadingShow(false);
@@ -163,11 +159,11 @@
         loading.value = state;
       }
       const validateForm = () => {
-        dniRef.value.validate()
+        emailRef.value.validate()
         passwordRef.value.validate()
 
         if (
-          dniRef.value.hasError 
+          emailRef.value.hasError 
           || passwordRef.value.hasError
         ) return false
 
@@ -175,11 +171,11 @@
       }
       return {
         icons,
-        dni,
+        email,
         password,
-        dniRef,
+        emailRef,
         passwordRef,
-        dniRules,
+        emailRules,
         passwordRules,
         remember,
         isPwd,

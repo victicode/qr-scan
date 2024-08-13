@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
@@ -54,16 +55,8 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
-    // public function redTape(){
-    //     return $this->hasMany(RedTape::class)->orderBy('created_at', 'desc');
-    // }
-    // public function cards(){
-    //     return $this->hasMany(Card::class)->orderBy('created_at', 'desc');
-    // }
-    // public function wallet(){
-    //     return $this->hasOne(Wallet::class)->where('type', 1);
-    // }
-    // public function wallet_found(){
-    //     return $this->hasOne(Wallet::class)->where('type', 2);
-    // }
+    public function qrScan(): BelongsToMany
+    {
+        return $this->belongsToMany(Qr::class, 'users_x_qrs');
+    }
 }   

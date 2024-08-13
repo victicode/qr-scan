@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="auth-section" style="position: relative;">
-      <div class="bg-terciary row justify-center q-px-lg  column" style="height:17%" >
+      <div class="bg-secondary row justify-center q-px-lg  column" style="height:17%" >
         <h3 class="text-white text-md-h3 woz-logo">Bienvenido</h3>
         <q-linear-progress rounded size="8px" track-color="white"  :value="0.55" color="backLinear" reverse class="q-mt-sm auth-progress" />
       </div>
@@ -28,7 +28,7 @@
       const q = useQuasar()
       onMounted(() =>{
         // console.log('kkk')
-        q.addressbarColor.set('#ffc701')
+        q.addressbarColor.set('#ff5a6a')
 
       })
       return {

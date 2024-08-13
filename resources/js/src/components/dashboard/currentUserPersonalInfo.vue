@@ -1,48 +1,21 @@
 <template>
   <div class="userInfoContent q-pt-md q-px-lg" >
     <div style="">
-      <div class="text-subtitle1 text-white text-weight-regular">Dinero disponible</div>
-      <h5 class="text-white q-mt-xs text-weight-bold ">Gs. {{numberFormat(user.wallet.balance)}}</h5>
+      <div class="text-h4 text-white text-weight-regular">Bienvenido</div>
     </div>
     <div class="">
       <div class="w-100 user-info q-mt-md-sm">
         <div class="flex items-center"> 
-          <h6 class=" text-subtitle1 text-weight-medium  q-mr-xs  q-mt-xs q-mb-none">
+          <h6 class="text-weight-medium  q-mr-xs  q-mt-xs q-mb-none">
             {{ user.name }} 
           </h6>
-          <div>
-            <q-icon
-              :name="user.verify_status == 2 ? icons.sharpVerified : icons.outlinedVerified"
-              size="sm"
-              :color=" user.verify_status > 0 ? 'terciary' :'grey-5'"
-              class="user-verify-user"
-              :class="{'verify-user':user.verify_status == 2, }"
-              @click="showToltip"
-            >
-              <q-tooltip 
-                anchor="top middle" 
-                self="bottom middle" 
-                :class=" user.verify_status == 2 ? 'bg-positive': 'bg-terciary' " 
-                :offset="[10, 10]" 
-                v-model="showing"
-              >
-                {{
-                  user.verify_status == 1
-                  ? 'Verificación en proceso'
-                  : user.verify_status == 2 
-                  ? 'Usuario verificado'
-                  : 'Sin verificación'
-                }}
-              </q-tooltip>
-            </q-icon>
-          </div>
         </div>
         <div>
-          <q-linear-progress rounded size="4px" track-color="grey-5"  :value="0.55" color="terciary"  class="q-mb-sm dashboard-progress" />
+          <q-linear-progress rounded size="4px" track-color="grey-5"  :value="0.55" color="secondary"  class="q-mb-sm dashboard-progress" />
         </div>
         <div class="q-mt-sm">
           <span class="text-body2 text-weight-bold">
-            CI N°: {{ numberFormat(user.dni) }} 
+            Correo: {{ user.email}} 
           </span>
         </div>
       </div>
@@ -87,7 +60,7 @@
   .userInfoContent{
     height: 100%; 
     overflow: hidden;
-    background: linear-gradient(180deg, #0449fb 65%, #fff 60%);
+    background: linear-gradient(180deg, $secondary 65%, #fff 60%);
   }
   h5{
     font-size: 1.9rem!important;

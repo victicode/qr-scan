@@ -15,7 +15,7 @@ class AuthController extends Controller
 	public function login(Request $request){
 		try {
 			$validator = Validator::make($request->all(), [
-				'dni'=> 'required',
+				'email'=> 'required',
 				'password'=>'required'
 		]);
 
@@ -30,7 +30,7 @@ class AuthController extends Controller
 
 		try{
 			$token = JWTAuth::attempt([
-				'dni'  		=> $request->dni,
+				'email'  		=> $request->email,
 				'password'	=> $request->password
 			]);
 		}catch (Exception $e) {
@@ -66,7 +66,7 @@ class AuthController extends Controller
 			]);
 	}
 	public function getUser(Request $request){
-		return $this->returnSuccess(200, User::with('wallet')->find($request->user()->id));
+		return $this->returnSuccess(200, User::with('qrScan')->find($request->user()->id));
 
 	}
 	public function refresh(){

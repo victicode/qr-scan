@@ -79,7 +79,7 @@
 #navbar-buttom{
   height: 10%;
   width: 100%;
-  background: #f1f0f0;
+  background: #fff;
 }
 .layout-dasboard__content{
   height: 100vh;
